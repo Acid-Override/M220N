@@ -174,9 +174,12 @@ namespace M220N.Repositories
             // TODO Ticket: User Management
             // Delete the document in the `sessions` collection matching the email.
             
-            await _sessionsCollection.DeleteOneAsync(new BsonDocument(), cancellationToken);
+            await _sessionsCollection.DeleteOneAsync(new BsonDocument("user_id", email), cancellationToken);
             return new UserResponse(true, "User logged out.");
         }
+
+
+
 
         /// <summary>
         ///     Gets a user from the `sessions` collection.
@@ -188,8 +191,11 @@ namespace M220N.Repositories
         {
             // TODO Ticket: User Management
             // Retrieve the session document corresponding with the user's email.
-            return await _sessionsCollection.Find(new BsonDocument()).FirstOrDefaultAsync();
+            return await _sessionsCollection.Find(new BsonDocument("user_id", email)).FirstOrDefaultAsync(cancellationToken);
         }
+
+
+
 
         /// <summary>
         ///     Removes a user from the `sessions` and `users` collections
