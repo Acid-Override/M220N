@@ -87,7 +87,8 @@ namespace M220N.Repositories
                     HashedPassword = PasswordHashOMatic.Hash(password)
                 };
 
-                await _usersCollection.InsertOneAsync(user);
+                //await _usersCollection.InsertOneAsync(user);
+                await _usersCollection.WithWriteConcern(WriteConcern.WMajority).InsertOneAsync(user);
                 //
                 // // TODO Ticket: Durable Writes
                 // // To use a more durable Write Concern for this operation, add the 
@@ -245,16 +246,24 @@ namespace M220N.Repositories
                 */
 
                 UpdateResult updateResult = null;
-                // TODO Ticket: User Preferences
+                // ToO Ticket: User Preferences
                 // Use the data in "preferences" to update the user's preferences.
                 //
                 // updateResult = await _usersCollection.UpdateOneAsync(
                 //    new BsonDocument(),
-                //    Builders<User>.Update.Set("TODO", preferences),
+                //    Builders<User>.Update.Set("TDO", preferences),
                 //    /* Be sure to pass a new UpdateOptions object here,
                 //       setting IsUpsert to false! */
                 //    new UpdateOptions(),
                 //    cancellationToken);
+
+                updateResult = await _usersCollection.UpdateOneAsync(
+                    new BsonDocument("email", email),
+                    Builders<User>.Update.Set(u => u.Preferences, preferences),
+                    /* Be sure to pass a new UpdateOptions object here,
+                       setting IsUpsert to false! */
+                    new UpdateOptions{ IsUpsert = false},
+                    cancellationToken);
 
                 return updateResult.MatchedCount == 0
                     ? new UserResponse(false, "No user found with that email")

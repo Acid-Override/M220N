@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rRpqJYdGMOcMyHeoCyPw6u91aUxC4d3Vieks54D9xjW3VJYGqLrxrka4rTRvQd5DZLhUEKionB8ucrsgFpmGaA==",
+  "dgSpecHash": "pz52TNde0QaIPXyg8YIcUbunzX2/efoamyiSsWexUlygsxKm9Gzbpc2a9PpKfuExpo/uRvw9lfuWveBUFpIxTg==",
   "success": true,
   "projectFilePath": "/Users/jupiter/Projects/MongoDB/mflix-cs/M220N/M220N.csproj",
   "expectedPackageFiles": [
@@ -149,7 +149,7 @@
     "/Users/jupiter/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/Users/jupiter/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/Users/jupiter/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "/Users/jupiter/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.26/microsoft.netcore.app.host.osx-x64.3.1.26.nupkg.sha512",
+    "/Users/jupiter/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.27/microsoft.netcore.app.host.osx-x64.3.1.27.nupkg.sha512",
     "/Users/jupiter/.nuget/packages/microsoft.netcore.app.ref/3.1.0/microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
   ],
   "logs": []

@@ -32,6 +32,26 @@ namespace M220NLessons
         }
 
         [Test]
+        public async Task ThisIsATest()
+        {
+
+            //var countries = new string[] { "Kosovo" };
+            string [] countries = { "Kosovo" };
+            var sort = Builders<Movie>.Sort.Descending("year");
+            var filter2 = Builders<Movie>.Filter.In("countries", new string[] { "Kosovo" });
+            var filter3 = Builders<Movie>.Filter.In("countries", countries);
+            //var filter4 = Builders<Movie>.Filter.In();
+            var filter = Builders<Movie>.Filter.Lt(m => m.Year, 1950) & Builders<Movie>.Filter.Gt(m => m.Year, 1948);
+
+            //var movies = await _moviesCollection.Find(m => m.Countries.Any(c => countries.Contains(c))).Limit(10).ToListAsync();
+
+            var moviess = await _moviesCollection.Find(filter3).Limit(10).ToListAsync();
+
+            System.Console.WriteLine(moviess.First().Title);
+            
+        }
+
+        [Test]
         public async Task GetOneMovieAsync()
         {
             /*

@@ -176,7 +176,9 @@ namespace M220NTests
         [Test]
         public async Task TestReturnsOneMovieWithComments()
         {
-            var movie = await _movieRepository.GetMovieAsync("573a1391f29313caabcd6d40");
+            //var movie = await _movieRepository.GetMovieAsync("573a1391f29313caabcd6d40");
+            var movie = await _movieRepository.GetMovieAsync("573a1391f29313caabcd6d4");
+
             Assert.AreEqual("High and Dizzy", movie.Title);
             Assert.AreEqual(1, movie.Comments.Count);
             Assert.AreEqual("Yolanda Owen", movie.Comments.First().Name);

@@ -74,6 +74,13 @@ namespace M220N.Repositories
             return movies;
         }
 
+
+
+
+
+
+        //GetMovieAsync - comments
+        
         /// <summary>
         ///     Get a <see cref="Movie" />
         /// </summary>
@@ -86,22 +93,48 @@ namespace M220N.Repositories
             {
                 return await _moviesCollection.Aggregate()
                     .Match(Builders<Movie>.Filter.Eq(x => x.Id, movieId))
+
+                    .Lookup(
+                        _commentsCollection,
+                        m => m.Id,
+                        c => c.MovieId,
+                        (Movie m)=>m.Comments
+                        )
                     // Ticket: Get Comments
                     // Add a lookup stage that includes the
                     // comments associated with the retrieved movie
                     .FirstOrDefaultAsync(cancellationToken);
             }
 
-            catch (Exception ex)
+            catch (Exception ex) //when (ex.InnerException is FormatException)
             {
                 // TODO Ticket: Error Handling
                 // Catch the exception and check the exception type and message contents.
                 // Return null if the exception is due to a bad/missing Id. Otherwise,
                 // throw.
+                Console.WriteLine(ex.Message);
+
+                //ex.Message.StartsWith("is not a valid 24") ? return null : throw;
+                   
+
+                
 
                 throw;
+
+                //return ex.Message.StartsWith("MongoError: E11000 duplicate key error")
+                //    ? new UserResponse(false, "A user with the given email already exists.")
+                //    : new UserResponse(false, ex.Message);
             }
         }
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         ///     For a given a country, return all the movies that match that country.
@@ -109,7 +142,7 @@ namespace M220N.Repositories
         /// <param name="cancellationToken">Allows the UI to cancel an asynchronous request. Optional.</param>
         /// <param name="countries">An <see cref="Array" /> of countries to match.</param>
         /// <returns>A <see cref="IReadOnlyList{T}" /> of <see cref="MovieByCountryProjection" /> objects</returns>
-        public async Task<IReadOnlyList<MovieByCountryProjection>> GetMoviesByCountryAsync(
+        public async Task<List<MovieByCountryProjection>> GetMoviesByCountryAsync(
             CancellationToken cancellationToken = default,
             params string[] countries            
             )

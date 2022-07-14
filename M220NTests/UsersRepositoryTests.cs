@@ -111,7 +111,8 @@ namespace M220NTests
         [Test]
         public async Task TestUpdateUserPreferences()
         {
-            var user = new User { Name = "Test User P",
+            var user = new User {
+                Name = "Test User P",
                 Email = "testuserp@mongodb.com",
                 Password = "hdfn123?" };
 

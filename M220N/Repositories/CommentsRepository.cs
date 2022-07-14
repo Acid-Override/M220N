@@ -25,6 +25,11 @@ namespace M220N.Repositories
             _moviesRepository = new MoviesRepository(mongoClient);
         }
 
+
+
+        //Add Comment
+
+
         /// <summary>
         ///     Adds a comment.
         /// </summary>
@@ -51,6 +56,9 @@ namespace M220N.Repositories
                 // Implement InsertOneAsync() to insert a
                 // new comment into the comments collection.
 
+                //await _commentsCollection.InsertOneAsync(newComment);
+                await _commentsCollection.InsertOneAsync(newComment, new InsertOneOptions(), cancellationToken);                
+
                 return await _moviesRepository.GetMovieAsync(movieId.ToString(), cancellationToken);
             }
             catch
@@ -58,6 +66,11 @@ namespace M220N.Repositories
                 return null;
             }
         }
+
+
+
+
+        //Upate Comment
 
         /// <summary>
         ///     Updates an existing comment. Only the comment owner can update the comment.
@@ -83,8 +96,24 @@ namespace M220N.Repositories
             // // new UpdateOptions { ... } ,
             // // cancellationToken);
 
-            return null;
+            var test = await _commentsCollection.Find<Comment>(Builders<Comment>.Filter.Where(m => m.MovieId == movieId && m.Email == user.Email && m.Id == commentId)).ToListAsync();
+            Console.WriteLine(test);
+
+
+            return await _commentsCollection.UpdateOneAsync(
+                Builders<Comment>.Filter.Where(c => c.Email == user.Email && c.Id == commentId),
+                Builders<Comment>.Update.Set(c => c.Text, comment).Set(c => c.Date, DateTime.UtcNow),
+                new UpdateOptions { IsUpsert = false },
+                cancellationToken
+                );
+
+            
         }
+
+
+
+
+        //Delete Comment 
 
         /// <summary>
         ///     Deletes a comment. Only the comment owner can delete a comment.
@@ -102,12 +131,19 @@ namespace M220N.Repositories
             // existing comment. Remember that only the original
             // comment owner can delete the comment!
             _commentsCollection.DeleteOne(
-                Builders<Comment>.Filter.Where(
-                    c => c.MovieId == movieId
-                         && c.Id == commentId));
+                Builders<Comment>.Filter.Where(c => c.MovieId == movieId && c.Id == commentId && c.Email == user.Email));
 
             return await _moviesRepository.GetMovieAsync(movieId.ToString(), cancellationToken);
         }
+
+
+
+
+
+
+
+
+        //Most Active Commenters
 
         public async Task<TopCommentsProjection> MostActiveCommentersAsync()
         {
@@ -133,7 +169,57 @@ namespace M220N.Repositories
                 // //   .Group(...)
                 // //   .Sort(...).Limt(...).Project(...).ToListAsync()
 
+
+
+                var groupStage = new BsonDocument
+                    {
+                        { "_id", "$email" },
+                        { "count",  new BsonDocument("$sum", 1) }
+                    };
+
+                var sortStage = Builders<BsonDocument>.Sort.Descending("count");
+                var limitStage = 20;                
+                var projectStage = Builders<BsonDocument>.Projection.Include("email").Include("count");
+
+                result = await _commentsCollection
+                    .WithReadConcern(ReadConcern.Majority)
+                    .Aggregate()                    
+                    .Group(groupStage)                    
+                    .Sort(sortStage)
+                    .Limit(limitStage)
+                    .Project<ReportProjection>(projectStage)
+                    .ToListAsync();
+
+                //.Group(u => u.Email, ac => new { Count = ac.Sum(u => 1) })
+
+
+
+                //var filter = new BsonDocument[]
+                //{
+                //    new BsonDocument("$group",
+                //    new BsonDocument
+                //        {
+                //           { "_id",
+                //    new BsonDocument("email", "$email") },
+                //           { "Count",
+                //    new BsonDocument("$sum", 1) }
+                //         }),
+                //    new BsonDocument("$sort",
+                //    new BsonDocument("Count", -1)),
+                //    new BsonDocument("$limit", 20),
+                //    new BsonDocument("$project",
+                //    new BsonDocument("Count", 1))
+                //};
+
+                //var pipeline = PipelineDefinition<Comment, ReportProjection>.Create(filter);
+
+                //result = await _commentsCollection
+                //    .WithReadConcern(ReadConcern.Majority)
+                //    .Aggregate(pipeline)                    
+                //    .ToListAsync();
+
                 return new TopCommentsProjection(result);
+                
             }
             catch (Exception ex)
             {
