@@ -56,6 +56,12 @@ namespace M220NTests
             _userController = new UserController(_userRepository, _commentRepository, appSettingsOptions);
             _commentController = new CommentController(_commentRepository, _userRepository, appSettingsOptions);
         }
+
+
+
+
+
+
         [Test]
         public async Task TestAddsComment()
         {
@@ -83,6 +89,13 @@ namespace M220NTests
                 await Cleanup();
             }
         }
+
+
+
+
+
+
+
         [Test]
         public async Task TestUpdatesComment()
         {
@@ -120,6 +133,18 @@ namespace M220NTests
                 await Cleanup();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
         [Test]
         public async Task DeleteComment()
         {
