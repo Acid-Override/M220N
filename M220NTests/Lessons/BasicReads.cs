@@ -29,6 +29,12 @@ namespace M220NLessons
 
             var client = new MongoClient(Constants.MongoDbConnectionUri());
             _moviesCollection = client.GetDatabase("sample_mflix").GetCollection<Movie>("movies");
+
+            var dbs = client.ListDatabases().ToList();
+            foreach (var db in dbs)
+            {
+                System.Console.WriteLine($"The DB is {db.GetValue("name")}");
+            }
         }
 
         [Test]
@@ -47,7 +53,9 @@ namespace M220NLessons
 
             var moviess = await _moviesCollection.Find(filter3).Limit(10).ToListAsync();
 
-            System.Console.WriteLine(moviess.First().Title);
+            System.Console.WriteLine(moviess.Last().Title);
+
+            
             
         }
 

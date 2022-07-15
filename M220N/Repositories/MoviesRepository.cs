@@ -106,12 +106,25 @@ namespace M220N.Repositories
                     .FirstOrDefaultAsync(cancellationToken);
             }
 
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Message.Contains("is not a valid 24 digit hex string.")) return null;
+                throw;
+            }
+
             catch (Exception ex) //when (ex.InnerException is FormatException)
             {
                 // TODO Ticket: Error Handling
                 // Catch the exception and check the exception type and message contents.
                 // Return null if the exception is due to a bad/missing Id. Otherwise,
                 // throw.
+
+
+
+                
+
+
                 Console.WriteLine(ex.Message);
 
                 //ex.Message.StartsWith("is not a valid 24") ? return null : throw;
@@ -125,6 +138,7 @@ namespace M220N.Repositories
                 //    ? new UserResponse(false, "A user with the given email already exists.")
                 //    : new UserResponse(false, ex.Message);
             }
+           
         }
 
 

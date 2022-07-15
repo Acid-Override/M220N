@@ -56,8 +56,8 @@ namespace M220N.Repositories
                 // Implement InsertOneAsync() to insert a
                 // new comment into the comments collection.
 
-                //await _commentsCollection.InsertOneAsync(newComment);
-                await _commentsCollection.InsertOneAsync(newComment, new InsertOneOptions(), cancellationToken);                
+                await _commentsCollection.InsertOneAsync(newComment, cancellationToken : cancellationToken);
+                //await _commentsCollection.InsertOneAsync(newComment, new InsertOneOptions(), cancellationToken);                
 
                 return await _moviesRepository.GetMovieAsync(movieId.ToString(), cancellationToken);
             }

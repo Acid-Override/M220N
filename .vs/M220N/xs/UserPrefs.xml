@@ -1,37 +1,28 @@
 ﻿<Properties StartupConfiguration="{1F6998EB-7228-4A65-96AE-5FB41A0B1475}|Default">
-  <MonoDevelop.Ide.ItemProperties.M220N PreferredExecutionTarget="/Applications/Firefox.app" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="M220N/Repositories/UsersRepository.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="M220N/Repositories/MoviesRepository.cs">
     <Files>
       <File FileName="M220N/Repositories/UsersRepository.cs" Line="83" Column="1" IsPinned="True" />
-      <File FileName="M220N/Controllers/UserController.cs" Line="67" Column="26" IsPinned="True" />
+      <File FileName="M220N/Controllers/UserController.cs" Line="195" Column="31" IsPinned="True" />
       <File FileName="M220NTests/UsersRepositoryTests.cs" Line="121" Column="1" IsPinned="True" />
       <File FileName="M220NTests/Lessons/BasicReads.cs" Line="54" Column="44" IsPinned="True" />
-      <File FileName="M220N/Models/User.cs" Line="8" Column="18" IsPinned="True" />
-      <File FileName="M220NTests/Lessons/BasicWrites.cs" Line="99" Column="32" IsPinned="True" />
-      <File FileName="M220NTests/Lessons/Aggregation.cs" Line="53" Column="15" />
-      <File FileName="M220N/Repositories/MoviesRepository.cs" Line="258" Column="33" />
-      <File FileName="M220NTests/MoviesRepositoryTests.cs" Line="113" Column="60" />
-      <File FileName="M220N/Models/Projections/MovieProjections.cs" Line="12" Column="1" />
-      <File FileName="M220NTests/Lessons/Theater.cs" Line="13" Column="11" />
-      <File FileName="M220NTests/Lessons/BasicUpdates.cs" Line="80" Column="1" />
-      <File FileName="M220N/Models/Movie.cs" Line="10" Column="18" />
-      <File FileName="M220N/Models/Responses/UserResponse.cs" Line="14" Column="1" />
+      <File FileName="M220N/Repositories/MoviesRepository.cs" Line="122" Column="1" IsPinned="True" />
+      <File FileName="M220NTests/MoviesRepositoryTests.cs" Line="49" Column="1" IsPinned="True" />
+      <File FileName="M220NTests/Lessons/WritesWithErrorHandling.cs" Line="120" Column="14" NotebookId="1" />
+      <File FileName="M220NTests/Lessons/BasicUpdates.cs" Line="80" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="M220N" expanded="True">
-            <Node name="M220N" expanded="True">
+            <Node name="M220N" expanded="True" selected="True">
               <Node name="Dependencies" expanded="True" />
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="Projections" expanded="True" />
                 <Node name="Responses" expanded="True" />
               </Node>
-              <Node name="Repositories" expanded="True">
-                <Node name="UsersRepository.cs" selected="True" />
-              </Node>
+              <Node name="Repositories" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
             </Node>
             <Node name="M220NTests" expanded="True">
@@ -50,14 +41,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint enabled="false" file="/Users/jupiter/Projects/MongoDB/mflix-cs/M220NTests/Lessons/BasicReads.cs" relfile="M220NTests/Lessons/BasicReads.cs" line="94" column="1" />
-      <Breakpoint file="/Users/jupiter/Projects/MongoDB/mflix-cs/M220NTests/UsersRepositoryTests.cs" relfile="M220NTests/UsersRepositoryTests.cs" line="49" column="1" />
-      <Breakpoint file="/Users/jupiter/Projects/MongoDB/mflix-cs/M220N/Repositories/UsersRepository.cs" relfile="M220N/Repositories/UsersRepository.cs" line="238" column="1" />
-      <Breakpoint file="/Users/jupiter/Projects/MongoDB/mflix-cs/M220NTests/UsersRepositoryTests.cs" relfile="M220NTests/UsersRepositoryTests.cs" line="112" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.M220N PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

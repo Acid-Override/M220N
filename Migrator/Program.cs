@@ -18,7 +18,7 @@ namespace Migrator
         static IMongoCollection<Movie> _moviesCollection;
 
         // TODO: Update this connection string as needed.
-        static string mongoConnectionString = "";
+        static string mongoConnectionString = "mongodb+srv://m220n:m220n-mongodb-basics@cluster0.fz5cg.mongodb.net/?retryWrites=true&w=majority";
         
         static async Task Main(string[] args)
         {
@@ -27,6 +27,13 @@ namespace Migrator
             Console.WriteLine("Starting the data migration.");
             var datePipelineResults = TransformDatePipeline();
             Console.WriteLine($"I found {datePipelineResults.Count} docs where the lastupdated field is of type 'string'.");
+
+
+
+
+
+
+
 
             if (datePipelineResults.Count > 0)
             {
@@ -37,8 +44,29 @@ namespace Migrator
                 //
                 // // bulkWriteDatesResult = await _moviesCollection.BulkWriteAsync(...
 
+                bulkWriteDatesResult = await _moviesCollection.BulkWriteAsync(datePipelineResults.Select(
+                      (updatedMovie => new ReplaceOneModel<Movie>
+                      (new FilterDefinitionBuilder<Movie>().Where(m => m.Id == updatedMovie.Id), updatedMovie))));
+
+
+                //var listWrites = new List<WriteModel<Movie>>();
+
+                //for (int i = 0; i < datePipelineResults.Count; i++)
+                //{
+                //    var filterDefinition = Builders<Movie>.Filter.Where(m => m.Id == datePipelineResults[i].Id);
+                //    var updateDefinition = datePipelineResults[i];
+                //    listWrites.Add(new ReplaceOneModel<Movie>(filterDefinition, updateDefinition));
+                //}
+
+                //bulkWriteDatesResult = await _moviesCollection.BulkWriteAsync(listWrites);
+
                 Console.WriteLine($"{bulkWriteDatesResult.ProcessedRequests.Count} records updated.");
             }
+
+
+
+
+
 
             var ratingPipelineResults = TransformRatingPipeline();
             Console.WriteLine($"I found {ratingPipelineResults.Count} docs where the imdb.rating field is not a number type.");
@@ -51,6 +79,10 @@ namespace Migrator
                 // (https://mongodb.github.io/mongo-csharp-driver/2.12/apidocs/html/T_MongoDB_Driver_ReplaceOneModel_1.htm).
                 //
                 // // bulkWriteRatingsResult = await _moviesCollection.BulkWriteAsync(...
+
+                bulkWriteRatingsResult = await _moviesCollection.BulkWriteAsync(ratingPipelineResults.Select(
+                       (updatedMovie => new ReplaceOneModel<Movie>
+                       (new FilterDefinitionBuilder<Movie>().Where(m => m.Id == updatedMovie.Id), updatedMovie ))));
 
                 Console.WriteLine($"{bulkWriteRatingsResult.ProcessedRequests.Count} records updated.");
             }
