@@ -120,19 +120,12 @@ namespace M220N.Repositories
                 // Return null if the exception is due to a bad/missing Id. Otherwise,
                 // throw.
 
-
-
-                
-
-
                 Console.WriteLine(ex.Message);
-
-                //ex.Message.StartsWith("is not a valid 24") ? return null : throw;
-                   
+                if ( ex.Message.Contains("is not a valid 24")) return null;
+                throw;
+                      
 
                 
-
-                throw;
 
                 //return ex.Message.StartsWith("MongoError: E11000 duplicate key error")
                 //    ? new UserResponse(false, "A user with the given email already exists.")
@@ -148,7 +141,7 @@ namespace M220N.Repositories
 
 
 
-
+        //Get Movies By Country
 
         /// <summary>
         ///     For a given a country, return all the movies that match that country.
@@ -178,6 +171,14 @@ namespace M220N.Repositories
             //return null;
         }
 
+
+
+
+
+
+
+        //Get Movies By Text
+
         /// <summary>
         ///     Finds all movies that contain the keyword(s).
         /// </summary>
@@ -201,6 +202,16 @@ namespace M220N.Repositories
                 .Skip(page * limit)
                 .ToListAsync(cancellationToken);
         }
+
+
+
+
+
+
+
+
+        //Get Movies by Cast
+
 
         /// <summary>
         ///     Returns a list of Movies filtered by cast members.
@@ -226,6 +237,13 @@ namespace M220N.Repositories
                 .ToListAsync(cancellationToken);
         }
 
+
+
+
+
+
+        //Get Movies By Genre
+
         /// <summary>
         ///     Finds all movies that match the provide `genres`, sorted descending by the `sortKey` field.
         /// </summary>
@@ -248,9 +266,9 @@ namespace M220N.Repositories
             // If you get stuck see the ``GetMoviesByCastAsync`` method above.
             returnValue = await _moviesCollection
                .Find(filter)
-               .Sort(sort)
-               .Skip(page * limit)
                .Limit(limit)
+               .Skip(page * limit)
+               .Sort(sort)
                .ToListAsync(cancellationToken);
                
 
@@ -263,6 +281,18 @@ namespace M220N.Repositories
             return returnValue;
         }
 
+
+
+
+
+
+
+
+
+
+
+        //Get Movies Cast Faceted
+        
         /// <summary>
         ///     Finds movies by cast members
         /// </summary>
